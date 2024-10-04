@@ -1,0 +1,14 @@
+{
+  "name": "echo-server",
+  "version": "0.0.1",
+  "author": "Harsh Narayan Jha",
+  "description": "Server for the Echo App",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
