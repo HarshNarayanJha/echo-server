@@ -17,11 +17,17 @@ const io = new Server(server, {
 })
 
 io.on('connection', (socket) => {
-  console.log('client connected')
+  console.log('echoer connected', socket.id)
 
-  setInterval(() => {
-    socket.emit('update', "typing... ")
-  }, 2500)
+  socket.on('update', (data: string) => {
+
+  })
+
+  socket.on('disconnect', () => console.log('echoer disconnected'))
+
+  // setInterval(() => {
+  //   socket.emit('update', "typing... ")
+  // }, 2500)
 })
 
 server.listen(5000, () => console.log("Server running"))

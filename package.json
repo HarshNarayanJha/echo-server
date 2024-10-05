@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "author": "Harsh Narayan Jha",
   "description": "Server for the Echo App",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun index.ts",
-    "start": "bun index.ts"
+    "dev": "bun src/index.ts",
+    "start": "bun src/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
