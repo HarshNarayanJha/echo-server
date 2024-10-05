@@ -18,6 +18,10 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
   console.log('client connected')
+
+  setInterval(() => {
+    socket.emit('update', "typing... ")
+  }, 2500)
 })
 
 server.listen(5000, () => console.log("Server running"))
