@@ -14,7 +14,7 @@ export function notepadHandler(socket: Socket<ClientToServerEvents, ServerToClie
     socket.join(roomId)
     console.log("Echoer", socket.id, "name", notepadService.getEchoerName(socket.id), "joined room", roomId)
 
-    socket.to(roomId).emit(ServerEvents.JOINED, { name, members: notepadService.getAllEchoersNames() })
+    io.to(roomId).emit(ServerEvents.JOINED, { name, members: notepadService.getEchoersNames(roomId) })
   })
 
   socket.on(ClientEvents.ECHO, ({ text }) => {
@@ -24,6 +24,14 @@ export function notepadHandler(socket: Socket<ClientToServerEvents, ServerToClie
     if (echoer) {
       socket.to(echoer.roomId).emit(ServerEvents.REVERB, { text })
     }
+  })
+
+  socket.on(ClientEvents.LEAVE, ({ name, roomId }) => {
+    console.log("Echoer", name, "left room", roomId)
+    notepadService.removeEchoer(socket.id)
+    socket.leave(roomId)
+
+    io.to(roomId).emit(ServerEvents.LEFT, { name, members: notepadService.getEchoersNames(roomId) })
   })
 
   socket.on('disconnect', () => {

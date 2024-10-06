@@ -12,6 +12,17 @@ class NotepadService {
     return names
   }
 
+  getEchoersNames(roomId: string): string[] {
+    const names: string[] = [];
+    this.echoers.forEach((echoer: Echoer) => {
+      if (echoer.roomId == roomId) {
+        names.push(echoer.name)
+      }
+    })
+
+    return names
+  }
+
   getEchoer(id: string): Echoer | undefined {
     return this.echoers.get(id)
   }
