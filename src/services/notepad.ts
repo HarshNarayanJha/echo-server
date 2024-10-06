@@ -1,4 +1,4 @@
-import type { Echoer } from "../types/echoer";
+import type { Echoer } from "../types/echoer.ts";
 
 class NotepadService {
   private echoers: Map<string, Echoer> = new Map();

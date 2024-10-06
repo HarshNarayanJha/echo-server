@@ -2,7 +2,7 @@ import express from 'express'
 import http from 'http'
 import { Server, Socket } from 'socket.io'
 import cors from 'cors'
-import { notepadHandler } from './handlers/notepad'
+import { notepadHandler } from './handlers/notepad.ts'
 
 const app = express()
 
