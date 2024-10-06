@@ -14,7 +14,7 @@ export function notepadHandler(socket: Socket<ClientToServerEvents, ServerToClie
     socket.join(roomId)
     console.log("Echoer", socket.id, "name", notepadService.getEchoerName(socket.id), "joined room", roomId)
 
-    socket.to(roomId).emit(ServerEvents.JOINED, { name })
+    socket.to(roomId).emit(ServerEvents.JOINED, { name, members: notepadService.getAllEchoersNames() })
   })
 
   socket.on(ClientEvents.ECHO, ({ text }) => {

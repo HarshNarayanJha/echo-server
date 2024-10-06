@@ -3,6 +3,15 @@ import type { Echoer } from "../types/echoer";
 class NotepadService {
   private echoers: Map<string, Echoer> = new Map();
 
+  getAllEchoersNames(): string[] {
+    const names: string[] = [];
+    this.echoers.forEach((echoer: Echoer) => {
+      names.push(echoer.name)
+    })
+
+    return names
+  }
+
   getEchoer(id: string): Echoer | undefined {
     return this.echoers.get(id)
   }
