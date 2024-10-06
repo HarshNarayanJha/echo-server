@@ -1,9 +1,9 @@
-import { Socket } from "socket.io";
+import { Server, Socket } from "socket.io";
 import { ClientEvents, type ClientToServerEvents, ServerEvents, type ServerToClientEvents } from "../types/events";
 import { notepadService } from "../services/notepad";
 import { type Echoer } from "../types/echoer";
 
-export function notepadHandler(socket: Socket<ClientToServerEvents, ServerToClientEvents>) {
+export function notepadHandler(socket: Socket<ClientToServerEvents, ServerToClientEvents>, io: Server) {
   console.log("New Client connected:", socket.id)
 
   socket.on(ClientEvents.INIT, ({name , roomId}) => {
@@ -14,7 +14,7 @@ export function notepadHandler(socket: Socket<ClientToServerEvents, ServerToClie
     socket.join(roomId)
     console.log("Echoer", socket.id, "name", notepadService.getEchoerName(socket.id), "joined room", roomId)
 
-    socket.to(roomId).emit(ServerEvents.JOINED, { name })
+    io.to(roomId).emit(ServerEvents.JOINED, { name })
   })
 
   socket.on(ClientEvents.ECHO, ({ text }) => {
@@ -27,7 +27,7 @@ export function notepadHandler(socket: Socket<ClientToServerEvents, ServerToClie
   })
 
   socket.on('disconnect', () => {
-    console.log("Echoer disconnected", notepadService.getEchoerName(socket.id))
+    console.log("Echoer", notepadService.getEchoerName(socket.id), "disconnected")
     notepadService.removeEchoer(socket.id)
   })
 }
