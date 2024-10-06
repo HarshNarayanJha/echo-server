@@ -16,6 +16,11 @@ class NotepadService {
   }
 
   addEchoer(echoer: Echoer): void {
+    this.echoers.forEach((existingEchoer) => {
+      if (existingEchoer.name === echoer.name) {
+        return
+      }
+    })
     this.echoers.set(echoer.id, echoer)
   }
 
