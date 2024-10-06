@@ -22,12 +22,12 @@ export function notepadHandler(socket: Socket<ClientToServerEvents, ServerToClie
     const echoer = notepadService.getEchoer(socket.id)
 
     if (echoer) {
-      socket.to(echoer.roomId).emit(ServerEvents.REVERB, { text })
+      io.to(echoer.roomId).emit(ServerEvents.REVERB, { text })
     }
   })
 
   socket.on(ClientEvents.LEAVE, ({ name, roomId }) => {
-    console.log("Echoer", name, "left room", roomId)
+    console.log("Echoer", socket.id, name, "left room", roomId)
     notepadService.removeEchoer(socket.id)
     socket.leave(roomId)
 
