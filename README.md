@@ -11,7 +11,7 @@ Server repo for the Echo App. It processes all the events and raises some to mak
 - Emits
   1. \*reverb -> send the data received from a client back to all other clients
   2. joined -> notification to all other clients that someone joined
-  3. 3. left -> notification to all other clients that someone left
+  3. left -> notification to all other clients that someone left
 
 NOTE: \* marked events are the main heroes
 
