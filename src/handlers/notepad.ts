@@ -35,7 +35,15 @@ export function notepadHandler(socket: Socket<ClientToServerEvents, ServerToClie
   })
 
   socket.on('disconnect', () => {
-    console.log("Echoer", notepadService.getEchoerName(socket.id), "disconnected")
+    const name = notepadService.getEchoerName(socket.id)
+    console.log("Echoer", name, "disconnected")
+
+    const roomId = notepadService.getEchoer(socket.id)?.roomId
     notepadService.removeEchoer(socket.id)
+
+    if (roomId) {
+      socket.leave(roomId)
+      io.to(roomId).emit(ServerEvents.LEFT, { name, members: notepadService.getEchoersNames(roomId) })
+    }
   })
 }
